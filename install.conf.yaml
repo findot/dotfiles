@@ -5,7 +5,18 @@
 - clean: ['~']
 
 - link:
-  ~/.zshrc:zsh/zshrc
+  ~/.zshrc
+    path: zsh/zshrc
+    create: false
+  ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+    path: nvim/packer.nvim
+    create: true
+  ~/.config/nvim:
+    path: nvim/config
+    create: true
+  ~/.config/picom.conf
+    path: picom/picom.conf
+    create: true
 
 - shell:
   - [git submodule update --init --recursive, Installig submodules]
