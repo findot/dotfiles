@@ -1,0 +1,160 @@
+
+@use "sass:map"
+@use "sass:list"
+
+@use "colors" as *
+@use "widgets" as *
+
+// General variables
+
+// Font
+$font-family: FontAwesome, Monoid, Roboto, Helvetica, Arial, sans-serif
+$font-size: 14px
+
+$waybar-background: transparent
+$waybar-color: $rosewater
+
+$widget-x-padding: 10px
+$widget-y-padding: 0
+$widget-padding: $widget-y-padding $widget-x-padding
+$widget-rounding: 10px
+
+
+// Widgets
+@mixin widget($background-color, $foreground-color: $crust)
+  background-color: $background-color
+  color: $foreground-color
+  margin-left: 5px
+  opacity: .8
+
+  &:hover
+    opacity: 1.0
+
+
+// Application
+
+window#waybar
+  margin-top: 5px
+  background: transparent
+  color: #ffffff
+
+
+*
+  font-family: $font-family
+  font-size: $font-size
+
+
+button
+  box-shadow: inset 0 -2px transparent
+  border: none
+  border-radius: 0
+    
+  &:hover
+    background: inherit
+
+
+#workspaces button
+  padding: 0 5px
+  background-color: transparent
+  color: $rosewater
+
+  &.focused
+    background-color: $surface1 
+
+  &.urgent
+    background-color: $red 
+
+
+#mode
+  background-color: $rosewater 
+  border-bottom: 3px solid $rosewater 
+
+
+@function nnth($list, $i)
+  @if length($list) - 1 < $i 
+    @return null
+  @return nth($list, $i)
+
+
+.modules-right
+  widget box, widget label
+    padding: $widget-padding
+  
+
+.modules-right, .modules-center, .modules-left
+
+  & > widget
+    border-radius: $widget-rounding
+
+    & > box, & > label
+      border-radius: $widget-rounding
+      padding-left: $widget-x-padding
+      padding-right: $widget-x-padding
+
+  & > widget:first-child 
+    margin-left: 0
+
+  & > widget:last-child
+    margin-right: 0
+    
+#taskbar button label
+  padding: 0
+
+#workspaces button
+  padding: 5px 5px
+
+#workspaces button.visible
+  background: $lavender
+  color: $crust
+
+#workspaces button.hidden
+  background: red
+
+@each $widget-name, $widget-config in $widgets-config
+  $bg: nnth($widget-config, 1)
+  $fg: nnth($widget-config, 2)
+  $mods: map.get($widgets-mods, $widget-name)
+
+  ##{$widget-name}
+    @include widget($bg, $fg)
+    @each $mod in $mods
+      $i: index($mods, $mod)
+      $j: $i * 2 + 1
+      $mod-bg: nnth($widget-config, $j)
+      $mod-fg: nnth($widget-config, $j + 1)
+
+      &.#{$mod}
+        background: if($mod-bg, $mod-bg, inherit)
+        color: if($mod-fg, $mod-fg, inherit) 
+
+
+.modules-left > widget:first-child > #workspaces
+    margin-left: 0
+
+
+.modules-right > widget:last-child > #workspaces
+    margin-right: 0
+
+
+label:focus
+  background-color: $crust
+
+
+// Widget specific things
+#tray
+  
+  & > .passive
+    -gtk-icon-effect: dim
+
+  & > .needs-attention
+    background-color: $red 
+    -gtk-icon-effect: highlight
+
+
+// Animations
+
+@keyframes blink
+  to
+    background-color: #ffffff
+    color: #000000
+  

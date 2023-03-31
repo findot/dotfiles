@@ -1,0 +1,43 @@
+
+@use "colors" as *;
+
+$widgets-config: (
+  "workspaces":		($base, null),
+  "taskbar":		($base, null),
+  "clock":              ($base, null),
+  "temperature":        ($base, null, $red),
+  "memory":             ($base, null),
+  "disk":               ($base, null),
+  "cpu":                ($base, null),
+  "backlight":          ($base, null),
+  "network":            ($base, null, $red),
+  "wireplumber":        ($base, null, $red),
+  "pulseaudio":         ($base, null, $red),
+  "custom-media":       ($base, null),
+  "tray":               ($base, null),
+  "idle_inhibitor":     ($base, null, $lavender, $crust, null),
+  "scratchpad":         ($base, null, transparent),
+  "mpd":                ($base, null, $red, null, $green, $text, $overlay2, $text),
+  "custom-pacman":	($base, null)
+);
+
+$widgets-mods: (
+  "workspaces":		(),
+  "taskbar":		(),
+  "clock":              (),
+  "temperature":        ("critical"),
+  "memory":             (),
+  "disk":               (),
+  "cpu":                (),
+  "backlight":          (),
+  "network":            ("disconnected"),
+  "wireplumber":        ("muted"),
+  "pulseaudio":         ("muted"),
+  "custom-media":       (),
+  "tray":               ("needs-attention"),
+  "idle_inhibitor":     ("activated"),
+  "scratchpad":         ("empty"),
+  "mpd":                ("disconnected", "paused", "stopped"),
+  "custom-pacman":	()
+);
+

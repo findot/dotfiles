@@ -1,21 +1,34 @@
 - defaults:
     link:
       relink: true
+      mode: 0750
   
-- clean: ['~']
+- clean: ['~', '~/.config']
 
 - link:
-  ~/.zshrc
-    path: zsh/zshrc
-    create: false
-  ~/.local/share/nvim/site/pack/packer/start/packer.nvim
-    path: nvim/packer.nvim
+  ~/.config/alacritty:
+    path: alacritty
+    create: true
+  ~/.config/dunst:
+    path: dunst
+    create: true
+  ~/.config/hypr:
+    path: hypr
     create: true
   ~/.config/nvim:
     path: nvim/config
     create: true
-  ~/.config/picom.conf
-    path: picom/picom.conf
+  ~/.config/rofi:
+    path: rofi
+    create: true
+  ~/.config/waybar:
+    path: waybar
+    create: true
+  ~/.zshrc:
+    path: zsh/zshrc
+    create: false
+  ~/.local/share/nvim/site/pack/packer/start/packer.nvim:
+    path: nvim/packer.nvim
     create: true
 
 - shell:
